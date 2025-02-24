@@ -20,7 +20,7 @@
         label {
             font-weight: bold;
         }
-        select, input, button {
+        select, input, textarea, button {
             width: 100%;
             margin-top: 10px;
             padding: 8px;
@@ -47,6 +47,30 @@
         <label for="telefono">Teléfono:</label>
         <input type="tel" id="telefono" placeholder="Tu número" required>
 
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" placeholder="Tu correo electrónico">
+
+        <label for="cliente">¿Eres cliente?</label>
+        <select id="cliente">
+            <option value="Si">Sí</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="numero_cliente">Número de Cliente:</label>
+        <input type="text" id="numero_cliente" placeholder="Tu número de cliente (si aplica)">
+
+        <label for="compania">Compañía:</label>
+        <input type="text" id="compania" placeholder="Nombre de tu compañía">
+
+        <label for="pais">País:</label>
+        <input type="text" id="pais" placeholder="Tu país">
+
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" placeholder="Tu ciudad">
+
+        <label for="estado">Estado:</label>
+        <input type="text" id="estado" placeholder="Tu estado">
+
         <label for="industria">Selecciona tu industria:</label>
         <select id="industria">
             <option value="">-- Selecciona una opción --</option>
@@ -62,6 +86,9 @@
             <option value="Soldadura y Corte">Soldadura y Corte</option>
         </select>
 
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" rows="4" placeholder="Escribe tu mensaje aquí"></textarea>
+
         <button onclick="enviarMensaje()">Enviar por WhatsApp</button>
     </div>
 
@@ -69,15 +96,33 @@
         function enviarMensaje() {
             let nombre = document.getElementById("nombre").value;
             let telefono = document.getElementById("telefono").value;
+            let email = document.getElementById("email").value;
+            let cliente = document.getElementById("cliente").value;
+            let numero_cliente = document.getElementById("numero_cliente").value;
+            let compania = document.getElementById("compania").value;
+            let pais = document.getElementById("pais").value;
+            let ciudad = document.getElementById("ciudad").value;
+            let estado = document.getElementById("estado").value;
             let industria = document.getElementById("industria").value;
-            
+            let mensaje = document.getElementById("mensaje").value;
+
             if (nombre === "" || telefono === "" || industria === "") {
-                alert("Por favor, completa todos los campos.");
+                alert("Por favor, completa los campos obligatorios.");
                 return;
             }
-            
-            let mensaje = `Hola, mi nombre es ${nombre}. Me gustaría recibir información sobre la industria de ${industria}.`;
-            let url = `https://api.whatsapp.com/send?phone=+5218119534891&text=${encodeURIComponent(mensaje)}`;
+
+            let texto = `Hola, mi nombre es ${nombre}. Me gustaría recibir información sobre la industria de ${industria}.`;
+            texto += `\nTeléfono: ${telefono}`;
+            if (email !== "") texto += `\nCorreo Electrónico: ${email}`;
+            texto += `\nCliente: ${cliente}`;
+            if (numero_cliente !== "") texto += `\nNúmero de Cliente: ${numero_cliente}`;
+            if (compania !== "") texto += `\nCompañía: ${compania}`;
+            if (pais !== "") texto += `\nPaís: ${pais}`;
+            if (ciudad !== "") texto += `\nCiudad: ${ciudad}`;
+            if (estado !== "") texto += `\nEstado: ${estado}`;
+            if (mensaje !== "") texto += `\nMensaje: ${mensaje}`;
+
+            let url = `https://api.whatsapp.com/send?phone=+521XXXXXXXXXX&text=${encodeURIComponent(texto)}`;
             window.open(url, "_blank");
         }
     </script>
