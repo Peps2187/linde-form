@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto - WhatsApp Business</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #25D366;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1ebe57;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Contacto vía WhatsApp</h2>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Tu nombre" required>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" placeholder="Tu número" required>
+
+        <label for="industria">Selecciona tu industria:</label>
+        <select id="industria">
+            <option value="">-- Selecciona una opción --</option>
+            <option value="Alimentos y Bebidas">Alimentos y Bebidas</option>
+            <option value="Automotriz">Automotriz</option>
+            <option value="Electrónica">Electrónica</option>
+            <option value="Energía y Medio Ambiente">Energía y Medio Ambiente</option>
+            <option value="Farmacéutica y Biotecnología">Farmacéutica y Biotecnología</option>
+            <option value="Manufactura y Metalurgia">Manufactura y Metalurgia</option>
+            <option value="Petróleo y Gas">Petróleo y Gas</option>
+            <option value="Química">Química</option>
+            <option value="Salud y Criogenia">Salud y Criogenia</option>
+            <option value="Soldadura y Corte">Soldadura y Corte</option>
+        </select>
+
+        <button onclick="enviarMensaje()">Enviar por WhatsApp</button>
+    </div>
+
+    <script>
+        function enviarMensaje() {
+            let nombre = document.getElementById("nombre").value;
+            let telefono = document.getElementById("telefono").value;
+            let industria = document.getElementById("industria").value;
+            
+            if (nombre === "" || telefono === "" || industria === "") {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+            
+            let mensaje = `Hola, mi nombre es ${nombre}. Me gustaría recibir información sobre la industria de ${industria}.`;
+            let url = `https://api.whatsapp.com/send?phone=+5218119534891&text=${encodeURIComponent(mensaje)}`;
+            window.open(url, "_blank");
+        }
+    </script>
+</body>
+</html>
